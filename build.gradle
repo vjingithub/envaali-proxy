@@ -1,0 +1,76 @@
+plugins {
+	id 'org.springframework.boot' version '2.4.3'
+	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	id 'java'
+//	id 'war'
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+
+def webappDir = "$projectDir/src/main/webapp"
+sourceSets {
+	main {
+		resources {
+			srcDirs = ["$webappDir/build", "$projectDir/src/main/resources"]
+		}
+	}
+}
+
+/*processResources {
+	dependsOn "buildReact"
+}
+
+task buildReact(type: Exec) {
+	dependsOn "installReact"
+	workingDir "$webappDir"
+	inputs.dir "$webappDir"
+	group = BasePlugin.BUILD_GROUP
+	commandLine "npm.cmd", "run-script", "build"
+}
+
+task installReact(type: Exec) {
+	workingDir "$webappDir"
+	inputs.dir "$webappDir"
+	group = BasePlugin.BUILD_GROUP
+	commandLine "npm.cmd", "audit", "fix"
+	commandLine "npm.cmd", "install"
+}*/
+
+//dependencies {
+//	implementation 'org.springframework.boot:spring-boot-starter-web'
+//	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+//}
+
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-jersey'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'junit:junit:4.12'
+	implementation 'org.apache.httpcomponents:httpclient:4.5.11'
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+//	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.mockito:mockito-all:1.10.19'
+	testImplementation 'org.mockito:mockito-core:1.10.19'
+	testImplementation 'org.powermock:powermock-module-junit4:1.6.4'
+	testImplementation 'org.powermock:powermock-api-mockito:1.6.4'
+	testImplementation 'org.powermock:powermock-core:1.6.4'
+}
+
+test {
+	useJUnitPlatform()
+}
